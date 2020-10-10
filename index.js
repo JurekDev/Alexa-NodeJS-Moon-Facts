@@ -106,7 +106,8 @@ const SessionEndedRequestHandler = {
 };
 
 const ErrorHandler = {
-//TODO
+  // TODO: simple error handling, maybe more output to the user
+  console.log("An internal error occured! The error is: " + handlerInput.requestEnvelope.request.reason);
 };
 
 const LocalizationInterceptor = {
