@@ -16,7 +16,7 @@
 //
 
 // sets up dependencies
-const Alexa = require('ask-sdk-core');
+const Alexa = require('ask-sdk');
 const i18n = require('i18next');
 
 // core functionality for fact skill
@@ -32,16 +32,13 @@ const GetNewFactHandler = {
     const requestAttributes = handlerInput.attributesManager.getRequestAttributes();
     // gets a random fact by assigning an array to the variable
     // the random item from the array will be selected by the i18next library
-    // the i18next library is set up in the Request Interceptor
-    const randomFact = requestAttributes.t('FACTS');
+    const randomFact = requestAttributes.t('Here comes a fact' + 'FACTS');
     // concatenates a standard message with the random fact
     const speakOutput = requestAttributes.t('GET_FACT_MESSAGE') + randomFact;
 
     return handlerInput.responseBuilder
       .speak(speakOutput)
-      // Uncomment the next line if you want to keep the session open so you can
-      // ask for another fact without first re-opening the skill
-      // .reprompt(requestAttributes.t('HELP_REPROMPT'))
+      reprompt(requestAttributes.t('HELP_REPROMPT'))
       .withSimpleCard(requestAttributes.t('SKILL_NAME'), randomFact)
       .getResponse();
   },
@@ -106,7 +103,8 @@ const SessionEndedRequestHandler = {
 };
 
 const ErrorHandler = {
-//TODO
+  // TODO: simple error handling, maybe more output to the user
+  console.log("An internal error occured! The error is: " + handlerInput.requestEnvelope.request.reason);
 };
 
 const LocalizationInterceptor = {
